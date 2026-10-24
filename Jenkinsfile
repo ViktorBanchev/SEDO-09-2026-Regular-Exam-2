@@ -1,20 +1,13 @@
 pipeline {
     agent any
 
-    triggers {
-        githubPush()
-    }
-
     stages {
-        stage('Checkout') {
-            steps {
-                checkout scm
+        stage("Restore dependencies") {
+            when {
+                branch "main"
             }
-        }
-
-        stage('Restore dependencies') {
             steps {
-                bat 'dotnet restore'
+                bat "dotnet restore"
             }
         }
 
